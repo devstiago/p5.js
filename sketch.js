@@ -3,6 +3,7 @@ let x = 100;  // Posição inicial do círculo
 let y = 300;
 let velocidadeX = 5;  // Velocidade do círculo na direção X
 let velocidadeY = 5;  // Velocidade do círculo na direção Y
+let lastButton = 'R'; //Left or Right
 
 function setup() {
 	createCanvas(900, 400);
@@ -18,10 +19,16 @@ function draw() {
    
    if (keyIsDown(LEFT_ARROW)) {
     x -= velocidadeX;
+    lastButton = 'L';
    }
 
    if (keyIsDown(RIGHT_ARROW)) {
     x += velocidadeX;
+    lastButton = 'R';
+   }
+
+   if (keyIsDown(32)){
+    Pula();
    }
 
    //Travas
@@ -46,3 +53,55 @@ function draw() {
   // }
   
 }
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function Pula(){
+
+  if(lastButton == 'R'){
+    for (let i = 1; i <= 20; i++) {
+      fill(0, 100, 255);
+      ellipse(x, y, 30, 30);
+      
+       y-=1;
+       x+=1;
+    }
+    
+    await delay(80);
+  
+    for (let i = 1; i <= 20; i++) {
+      fill(0, 100, 255);
+      ellipse(x, y, 30, 30);
+      
+       y+=1;
+       x+=1;
+    }
+  }else{
+    
+      for (let i = 1; i <= 20; i++) {
+        fill(0, 100, 255);
+        ellipse(x, y, 30, 30);
+        
+         y-=1;
+         x-=1;
+      }
+      
+      await delay(80);
+    
+      for (let i = 1; i <= 20; i++) {
+        fill(0, 100, 255);
+        ellipse(x, y, 30, 30);
+        
+         y+=1;
+         x-=1;
+      }
+    
+  }
+  
+  
+
+}
+
+
